@@ -1,0 +1,11 @@
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\bin\Debug\net6.0\enocaDotNetChallenge.Core.deps.json
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\bin\Debug\net6.0\enocaDotNetChallenge.Core.dll
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\bin\Debug\net6.0\enocaDotNetChallenge.Core.pdb
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\obj\Debug\net6.0\enocaDotNetChallenge.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\obj\Debug\net6.0\enocaDotNetChallenge.Core.AssemblyInfoInputs.cache
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\obj\Debug\net6.0\enocaDotNetChallenge.Core.AssemblyInfo.cs
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\obj\Debug\net6.0\enocaDotNetChallenge.Core.csproj.CoreCompileInputs.cache
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\obj\Debug\net6.0\enocaDotNetChallenge.Core.dll
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\obj\Debug\net6.0\refint\enocaDotNetChallenge.Core.dll
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\obj\Debug\net6.0\enocaDotNetChallenge.Core.pdb
+C:\Users\Burak\source\repos\enocaDotNetChallenge\CoreLayer\obj\Debug\net6.0\ref\enocaDotNetChallenge.Core.dll

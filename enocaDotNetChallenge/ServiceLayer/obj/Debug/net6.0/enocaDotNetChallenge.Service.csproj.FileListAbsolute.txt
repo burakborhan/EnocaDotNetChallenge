@@ -1,0 +1,17 @@
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\bin\Debug\net6.0\enocaDotNetChallenge.Service.deps.json
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\bin\Debug\net6.0\enocaDotNetChallenge.Service.dll
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\bin\Debug\net6.0\enocaDotNetChallenge.Service.pdb
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\bin\Debug\net6.0\enocaDotNetChallenge.Core.dll
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\bin\Debug\net6.0\enocaDotNetChallenge.Data.dll
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\bin\Debug\net6.0\enocaDotNetChallenge.Data.pdb
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\bin\Debug\net6.0\enocaDotNetChallenge.Core.pdb
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\enocaDotNetChallenge.Service.csproj.AssemblyReference.cache
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\enocaDotNetChallenge.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\enocaDotNetChallenge.Service.AssemblyInfoInputs.cache
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\enocaDotNetChallenge.Service.AssemblyInfo.cs
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\enocaDotNetChallenge.Service.csproj.CoreCompileInputs.cache
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\enocaDotNetChallenge.Service.csproj.CopyComplete
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\enocaDotNetChallenge.Service.dll
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\refint\enocaDotNetChallenge.Service.dll
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\enocaDotNetChallenge.Service.pdb
+C:\Users\Burak\source\repos\enocaDotNetChallenge\ServiceLayer\obj\Debug\net6.0\ref\enocaDotNetChallenge.Service.dll
