@@ -17,12 +17,6 @@ namespace enocaDotNetChallenge.Data.Configrations
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x=>x.CarrierName).IsRequired();
             builder.Property(x=>x.CarrierPlusDesiCost).IsRequired();
-            //builder.HasMany(x => x.CarrierConfigurations)
-            //.WithOne(c => c.Carriers)
-            //.HasForeignKey(c => c.Id);
-            //builder.HasMany(x => x.Orders)
-            //.WithOne(c => c.carriers)
-            //.HasForeignKey(c => c.Id);
         }
     }
 }

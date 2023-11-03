@@ -25,6 +25,7 @@ namespace enocaDotNetChallenge.Service.Services
             _carrierConfigurationRepository = carrierConfigurationRepository;
         }
 
+
         public async Task<CustomResponseDTO<ResponseOrdersDTO>> CreateOrderAsync(RequestOrdersDTO requestOrdersDTO)
         {
             int orderDesi = requestOrdersDTO.OrderDesi;
@@ -35,112 +36,64 @@ namespace enocaDotNetChallenge.Service.Services
             var carrierConfigurations = _carrierConfigurationRepository.GetAll();
 
             var minMaxDesiList = carrierConfigurations.GroupBy(c => c.Id)
-                                          .Select(g => new
-                                          {
-                                              CarrierId = g.Key,
-                                              MinDesi = g.Min(c => c.CarrierMinDesi),
-                                              MaxDesi = g.Max(c => c.CarrierMaxDesi),
-                                              Cost = g.Min(c => c.CarrierCost),
-                                          })
-                                          .ToList();
+                .Select(g => new
+                {
+                    CarrierId = g.Key,
+                    MinDesi = g.Min(c => c.CarrierMinDesi),
+                    MaxDesi = g.Max(c => c.CarrierMaxDesi),
+                    Cost = g.Min(c => c.CarrierCost),
+                })
+                .ToList();
 
             bool isDesiInRange = minMaxDesiList.Any(c => orderDesi >= c.MinDesi && orderDesi <= c.MaxDesi);
 
             if (isDesiInRange)
             {
                 var orderCarrierConfig = minMaxDesiList.OrderBy(c => c.Cost).FirstOrDefault(c => orderDesi >= c.MinDesi && orderDesi <= c.MaxDesi);
-
-                var carrier = carriers.FirstOrDefault(c => c.Id == orderCarrierConfig.CarrierId);
-                //var orderCarrier = carrier != null ? _mapper.Map<Carriers>(carrier) : null;
-                var carrierConfig = carrierConfigurations.FirstOrDefault(c => c.Id == orderCarrierConfig.CarrierId);
-                var orderCarrierCost = carrierConfig.CarrierCost;
-                var orderCarrierId = carrierConfig.CarrierId;
+                var orderCarrierId = orderCarrierConfig.CarrierId;
+                var orderCarrierCost = orderCarrierConfig.Cost;
 
                 var order = new Orders()
                 {
                     CarrierId = orderCarrierId,
                     OrderCarrierCost = orderCarrierCost,
                     OrderDate = DateTime.Now,
-                    OrderDesi = orderDesi
+                    OrderDesi = orderDesi,
                 };
 
-                var mapOrder = _mapper.Map<Orders>(order);
-
                 var createdOrder = await AddAsync(order);
-
                 var orderDto = _mapper.Map<ResponseOrdersDTO>(createdOrder);
 
                 return CustomResponseDTO<ResponseOrdersDTO>.Success(201, orderDto, "Order created");
-
             }
             else
             {
                 var minDesi = minMaxDesiList.OrderBy(c => c.MinDesi).FirstOrDefault(c => orderDesi <= c.MinDesi);
                 var maxDesi = minMaxDesiList.OrderByDescending(c => c.MaxDesi).FirstOrDefault(c => orderDesi >= c.MaxDesi);
-                if (minDesi != null && orderDesi < minDesi.MinDesi)
+
+                var closestCarrier = minDesi != null ? carrierConfigurations.OrderBy(c => c.CarrierMinDesi).FirstOrDefault() :
+                                                      carrierConfigurations.OrderByDescending(c => c.CarrierMaxDesi).FirstOrDefault();
+
+                var carrierList = carriers.Where(c => c.Id == closestCarrier.CarrierId).ToList();
+                var minPlusDesiAndClosestCarrier = carrierList.OrderBy(c => c.CarrierPlusDesiCost).FirstOrDefault();
+                var sub = minDesi != null ? Math.Abs(orderDesi - closestCarrier.CarrierMinDesi) : Math.Abs(orderDesi - closestCarrier.CarrierMaxDesi);
+                var carrierPlusDesiCost = minPlusDesiAndClosestCarrier.CarrierPlusDesiCost;
+                var extraCost = sub * carrierPlusDesiCost;
+                var cost = extraCost + closestCarrier.CarrierCost;
+
+                var order = new Orders()
                 {
-                    var closestCarrier = carrierConfigurations
-                .OrderBy(c => c.CarrierMinDesi)
-                .FirstOrDefault();
-                    var carrierList = carriers.Where(c => c.Id == closestCarrier.CarrierId).ToList();
-                    var minPlusDesiAndClosestCarrier = carrierList.OrderBy(c => c.CarrierPlusDesiCost).FirstOrDefault();
-                    var sub = Math.Abs(orderDesi - closestCarrier.CarrierMinDesi);
-                    var carrierPlusDesiCost = minPlusDesiAndClosestCarrier.CarrierPlusDesiCost;
-                    var closestCarrierCost = closestCarrier.CarrierCost;
-                    var extraCost = sub * carrierPlusDesiCost;
-                    var cost = extraCost + closestCarrier.CarrierCost;
+                    CarrierId = minPlusDesiAndClosestCarrier.Id,
+                    OrderCarrierCost = cost,
+                    OrderDate = DateTime.Now,
+                    OrderDesi = orderDesi,
+                };
 
-                    var order = new Orders()
-                    {
-                        CarrierId = minPlusDesiAndClosestCarrier.Id,
-                        OrderCarrierCost = cost,
-                        OrderDate = DateTime.Now,
-                        OrderDesi = orderDesi
-                    };
+                var createdOrder = await AddAsync(order);
+                var orderDto = _mapper.Map<ResponseOrdersDTO>(createdOrder);
 
-                    var mapOrder = _mapper.Map<Orders>(order);
-
-                    var createdOrder = await AddAsync(order);
-
-                    var orderDto = _mapper.Map<ResponseOrdersDTO>(createdOrder);
-
-                    return CustomResponseDTO<ResponseOrdersDTO>.Success(201, orderDto, "Order created");
-                }
-                if (maxDesi != null && orderDesi > maxDesi.MaxDesi)
-                {
-                    var closestCarrier = carrierConfigurations
-                .OrderByDescending(c => c.CarrierMaxDesi)
-                .FirstOrDefault();
-                    var carrierList = carriers.Where(c => c.Id == closestCarrier.CarrierId).ToList();
-                    var minPlusDesiAndClosestCarrier = carrierList.OrderBy(c => c.CarrierPlusDesiCost).FirstOrDefault();
-                    var sub = Math.Abs(orderDesi - closestCarrier.CarrierMaxDesi);
-                    var carrierPlusDesiCost = minPlusDesiAndClosestCarrier.CarrierPlusDesiCost;
-                    var closestCarrierCost = closestCarrier.CarrierCost;
-                    var extraCost = sub * carrierPlusDesiCost;
-                    var cost = extraCost + closestCarrier.CarrierCost;
-
-
-                    var order = new Orders()
-                    {
-                        CarrierId = minPlusDesiAndClosestCarrier.Id,
-                        OrderCarrierCost = cost,
-                        OrderDate = DateTime.Now,
-                        OrderDesi = orderDesi
-                    };
-
-                    var mapOrder = _mapper.Map<Orders>(order);
-
-                    var createdOrder = await AddAsync(order);
-
-                    var orderDto = _mapper.Map<ResponseOrdersDTO>(createdOrder);
-
-                    return CustomResponseDTO<ResponseOrdersDTO>.Success(201, orderDto, "Order created");
-                }
-
+                return CustomResponseDTO<ResponseOrdersDTO>.Success(201, orderDto, "Order created");
             }
-
-
-            return CustomResponseDTO<ResponseOrdersDTO>.Success(201, "Order created");
         }
 
 
